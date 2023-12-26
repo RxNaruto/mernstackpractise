@@ -5,6 +5,7 @@
 //delete to delete the kidney
 
 const express = require('express');
+const { networkInterfaces } = require('os');
 const app  = express();
 app.listen(3001);
 
@@ -48,4 +49,19 @@ app.put("/",function(req,res){
     res.json({
         msg:"kidney update success!",
     });
+})
+
+app.delete("/",function(req,res){
+    const newkidney=[];
+    for(let i=0;i<users[0].kidney.length;i++){
+        if(users[0].kidney[i].healthy){
+            newkidney.push({
+                healthy: true
+            })
+        }
+    }
+    users[0].kidney=newkidney;
+    res.json({
+        msg:"done!",
+    })
 })
