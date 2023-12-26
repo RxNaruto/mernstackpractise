@@ -7,8 +7,10 @@ var users=[{
         healthy: false},{
             healthy: true
         
-    }]
+    },
+{healthy: true}]
 }]
+
 app.get("/",function(req,res){
      const nokidneys=users[0].kidneys.length;
      res.send("the number of kidneys are"+ nokidneys);
