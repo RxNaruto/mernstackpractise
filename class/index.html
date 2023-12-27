@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function populatediv(){
+            const a=document.getElementById("firstnumber").value;
+            const b=document.getElementById("secondnumber").value;
+            const element =document.getElementById("finalsum")
+            console.log(element);
+            element.innerHTML=parseInt(a)+parseInt(b);
+        }
+    </script>
+</head>
+<body>
+    <input type="text" placeholder="First number" id="firstnumber"></input><br>
+    <input type="text" placeholder="Second number" id="secondnumber"></input><br>
+    <button onclick="populatediv()">cal sum</button>
+    <div id="finalsum"></div>
+
+    
+</body>
+</html>
