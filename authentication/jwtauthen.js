@@ -52,13 +52,19 @@ app.post("/signin",function(req,res){
 
 app.get("/users",function(req,res){
     const token = req.headers.authorization;
-
+    try{
     const decoded=jwt.verify(token,jwtpassword);
     const username=decoded.username;
     
     res.json({
        users: ALL_USERS
     })
+}
+catch(err){
+    return res.status(403).json({
+        msg:"invalid token"
+    })
+}
 
 });
 app.listen(3001);
