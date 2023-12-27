@@ -1,0 +1,19 @@
+There are 4 types of authentications
+
+1. Hashing 
+2. Encryption
+3. Json Web token
+4. Local Storage
+
+1. Hashing is one way-form the output no one can find the input 
+
+2. Encryption is a two way , a string is encrypted using password it can be decrypted using the same
+
+3. Json Web Tokens 
+
+it is neither encryption or hashing it is digital signature
+signature can only be verified by password
+
+4. Local Storage
+
+A place in your browser where you can store some data
