@@ -8,9 +8,18 @@
         function populatediv(){
             const a=document.getElementById("firstnumber").value;
             const b=document.getElementById("secondnumber").value;
-            const element =document.getElementById("finalsum")
-            console.log(element);
-            element.innerHTML=parseInt(a)+parseInt(b);
+            //const element =document.getElementById("finalsum")
+            //console.log(element);
+            //element.innerHTML=parseInt(a)+parseInt(b);
+            fetch("https://sum-server.100xdevs.com/sum?a=" + a + "&b=" + b)
+            .then(function(response){
+                console.log(response);
+                response.text()
+                     .then(function(ans){
+                        document.getElementById("finalsum").innerHTML =ans;
+                     })
+            });
+
         }
     </script>
 </head>
