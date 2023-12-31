@@ -68,6 +68,25 @@ function userMiddleware(req,res,next){
     }
     
 }
+function adminauthMiddleware(req,res,next){
+    const username=req.headers.username;
+    const password=req.headers.password;
+    
+    admin.findOne({
+        username: username,
+        password: password
+    })
+    .then(function(value){
+        if(value){
+            next();
+        }
+        else{
+            res.status(403).json({
+                msg:"you are not authorized"
+            })
+        }
+    })
+}
 
 app.post("/admin/signup", adminMiddleware, async function(req,res){
    
@@ -95,7 +114,11 @@ app.post("/students/signup", userMiddleware, async function(req,res){
     res.json({
         msg: "student registered successfully"
     })
-    
- 
-    
+})
+app.get("/admin/users",adminauthMiddleware,async function(req,res){
+
+    const response = await students.find({});
+    res.json({
+        response: response
+    })
 })
