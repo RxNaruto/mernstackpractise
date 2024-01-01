@@ -3,15 +3,15 @@ const express=require("express");
 const z=require("zod");
 const app = express();
 app.use(express.json());
-const schema = z.string().min(5, { message: "Must be 5 or more characters long and less the 8" }).and(z.string().max(8));
+const schema = z.string().email();
 app.post("/",function(req,res){
-    const password=req.query.pass;
-    const validation=schema.safeParse(password);
+    const email=req.body.email;
+    const validation=schema.safeParse(email);
     if(!validation.success){
         res.send("incorrect input");
         return;
     }
-    res.send("your password is " + password);
+    res.send("your email is " + email);
 })
 
 

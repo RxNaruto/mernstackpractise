@@ -20,7 +20,7 @@ const students = mongoose.model("students", {
     username: String,
     password: String,
     email: String,
-    rollno: Number,
+    rollno: String,
     schoolData:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'schoolData'
@@ -70,12 +70,12 @@ function userMiddleware(req,res,next){
     const username= req.body.username;
     const password= req.body.password;
     const email=req.body.email;
-    const number =req.body.number;
+    const number =req.body.rollno;
     const validuser = userschema.safeParse(username);
     const validpass = passschema.safeParse(password);
     const validemail=emailschema.safeParse(email);
     const validnum=numberschema.safeParse(number);
-    if(!validuser.success || !validpass.success || !validemail || !validnum){
+    if(!validuser.success || !validpass.success || !validemail.success || !validnum.success){
         res.json({
             msg:"wrong input"
         })
@@ -138,19 +138,33 @@ app.post("/admin/signup", adminMiddleware, async function(req,res){
  
     
 })
-app.post("/students/signup", userMiddleware, async function(req,res){
-   
-    const newstudent = await students.create({
+app.post("/students/signup", userMiddleware, async function (req, res) {
+ 
+      const newstudent = await students.create({
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
-        rollno:req.body.number,
-    })
-
-    res.json({
-        msg: "student registered successfully"
-    })
-})
+        rollno: req.body.number,
+      });
+  
+      // Link the student to a specific schoolData entry
+      const schoolDataId = req.body.schoolDataId; // Assuming you provide the schoolDataId in the request
+      const schoolDataEntry = await schoolData.findById(schoolDataId);
+  
+      if (schoolDataEntry) {
+        newstudent.schoolData.push(schoolDataEntry._id);
+        await newstudent.save();
+      } else {
+        return res.status(404).json({
+          msg: "School Data not found",
+        });
+      }
+  
+      res.json({
+        msg: "student registered successfully",
+      });
+    
+  });
 app.get("/admin/users",adminauthMiddleware,async function(req,res){
 
     const response = await students.find({});
@@ -182,3 +196,21 @@ app.get("/students/data/:objectId" ,  async function(req,res){
         })
     
 })
+app.get("/students/userdata/:objectId", async function (req, res) {
+    try {
+      const objectId = req.params.objectId;
+      const response = await students
+        .findById(objectId)
+        .populate('schoolData');
+      
+      res.json({
+        response: response,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        error: "Internal Server Error",
+      });
+    }
+  });
+  
