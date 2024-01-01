@@ -177,9 +177,8 @@ app.post("/admin/addschoolData",adminauthMiddleware,async function(req,res){
 })
 //add school data end point working fine
 
-app.get("/students/userdata/" ,  async function(req,res){
-    //const objectId=req.params.objectId;
-    const response = await students.find({}).populate('schoolData');
+app.get("/students/userdata/" , userauthMiddleware, async function(req,res){
+    const response = await students.find({}).populate('schoolData',' -_id class classIncharge subjects CR HouseName');
     res.json({
         response:response
     })
