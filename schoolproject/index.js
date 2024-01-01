@@ -20,7 +20,7 @@ const students = mongoose.model("students", {
     username: String,
     password: String,
     email: String,
-    rollno: Number,
+    rollno: String,
     schoolData:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'schoolData'
@@ -28,7 +28,7 @@ const students = mongoose.model("students", {
 
   });
 
-  const schoolData=mongoose.model("School Data", {
+  const schoolData=mongoose.model("schoolData", {
     class: String,
     classIncharge: String,
     subjects: Object,
@@ -48,7 +48,7 @@ const students = mongoose.model("students", {
 const userschema=z.string();
 const passschema = z.string().min(8);
 const emailschema= z.string().email();
-const numberschema=z.string(4);
+const rollnoschema=z.string(4);
 
 function adminMiddleware(req,res,next){
     const username= req.body.username;
@@ -70,12 +70,12 @@ function userMiddleware(req,res,next){
     const username= req.body.username;
     const password= req.body.password;
     const email=req.body.email;
-    const number =req.body.number;
+    const rollno =req.body.rollno;
     const validuser = userschema.safeParse(username);
     const validpass = passschema.safeParse(password);
     const validemail=emailschema.safeParse(email);
-    const validnum=numberschema.safeParse(number);
-    if(!validuser.success || !validpass.success || !validemail || !validnum){
+    const validnum=rollnoschema.safeParse(rollno);
+    if(!validuser.success || !validpass.success || !validemail.success || !validnum.success){
         res.json({
             msg:"wrong input"
         })
@@ -134,7 +134,7 @@ app.post("/admin/signup", adminMiddleware, async function(req,res){
     res.json({
         msg: "admin created successful"
     })
-    
+    //admin endpoint working fine
  
     
 })
@@ -144,22 +144,25 @@ app.post("/students/signup", userMiddleware, async function(req,res){
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
-        rollno:req.body.number,
+        rollno:req.body.rollno,
     })
 
     res.json({
         msg: "student registered successfully"
     })
 })
-app.get("/admin/users",adminauthMiddleware,async function(req,res){
+//student signup working perfectly
 
-    const response = await students.find({});
+app.get("/admin/allusers",adminauthMiddleware,async function(req,res){
+
+    const response = await admin.find({});
     res.json({
         response: response
     })
 })
+//admin authentication working fine
 
-app.post("/admin/schoolData",adminauthMiddleware,async function(req,res){
+app.post("/admin/addschoolData",adminauthMiddleware,async function(req,res){
     const newdetail = await schoolData.create({
         class: req.body.class,
         classIncharge: req.body.classIncharge,
@@ -172,13 +175,14 @@ app.post("/admin/schoolData",adminauthMiddleware,async function(req,res){
         msg: "Data added successfully"
     })
 })
+//add school data end point working fine
 
-app.get("/students/data/:objectId" ,  async function(req,res){
-    const objectId=req.params.objectId;
-    const response=await schoolData.findById(objectId);
-    console.log(response);
-        res.json({
-            response: response
-        })
+app.get("/students/userdata/" ,  async function(req,res){
+    //const objectId=req.params.objectId;
+    const response = await students.find({}).populate('schoolData');
+    res.json({
+        response:response
+    })
+    
     
 })

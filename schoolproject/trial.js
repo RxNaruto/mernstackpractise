@@ -70,7 +70,7 @@ function userMiddleware(req,res,next){
     const username= req.body.username;
     const password= req.body.password;
     const email=req.body.email;
-    const number =req.body.rollno;
+    const number =req.body.number;
     const validuser = userschema.safeParse(username);
     const validpass = passschema.safeParse(password);
     const validemail=emailschema.safeParse(email);
@@ -187,7 +187,7 @@ app.post("/admin/schoolData",adminauthMiddleware,async function(req,res){
     })
 })
 
-app.get("/students/data/:objectId" ,  async function(req,res){
+app.get("/students/studentdata/:objectId" ,  async function(req,res){
     const objectId=req.params.objectId;
     const response=await schoolData.findById(objectId);
     console.log(response);
@@ -196,8 +196,8 @@ app.get("/students/data/:objectId" ,  async function(req,res){
         })
     
 })
-app.get("/students/userdata/:objectId", async function (req, res) {
-    try {
+app.get("/user/studentdata/:objectId", async function (req, res) {
+  
       const objectId = req.params.objectId;
       const response = await students
         .findById(objectId)
@@ -206,11 +206,9 @@ app.get("/students/userdata/:objectId", async function (req, res) {
       res.json({
         response: response,
       });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        error: "Internal Server Error",
-      });
-    }
+    
+    
   });
+
+ 
   
