@@ -1,1 +1,8 @@
 to connect to data bases we use library called mongoose
+
+It gives 4 primitives
+
+Create data
+update data
+read data
+delete data
