@@ -2,13 +2,14 @@
 
 function App() {
   
-
+  
   return (
-    <div>
+    //or we can do this React.fragment
+    <>
       <Header title="harkirat1"></Header>
       <Header title="harkirat2"></Header>
   
-    </div>
+    </>
   )
 
 }
