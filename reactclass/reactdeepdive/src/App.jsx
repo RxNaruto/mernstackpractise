@@ -1,21 +1,19 @@
+function App(){
+  return <div>
+<CardWrapper innerComponent = {<TextComponent/>} />
+</div>
+}
 
 
-function App() {
-  
-  
-  return (
-    //or we can do this React.fragment
-    <>
-      <Header title="harkirat1"></Header>
-      <Header title="harkirat2"></Header>
-  
-    </>
-  )
+function CardWrapper({innerComponent}){
+return <div style={{border: "2px solid black"}}>
+    {innerComponent}
+  </div>
 
 }
-function Header({title}){
+function TextComponent(){
   return <div>
-    {title}
+    hi there
   </div>
 }
 
