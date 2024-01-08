@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react"
 import React from "react"
 
-const RenderTodo=()=>{
+const RendreTodo=()=>{
     return <div>
      <FetchTodo></FetchTodo>
     </div>
@@ -19,10 +19,7 @@ const FetchTodo=()=>{
     },[])
 
     return <div>
-        
+        json
     </div>
 
-
 }
-
-export default RenderTodo
