@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function App() {
   const [exchange1Data, setExchange1Data] = useState({});
@@ -27,12 +27,9 @@ function App() {
       });
     },5000 )
   }, [])
-  
-  const cryptoReturns =useMemo(() =>{
-    return exchange1Data.returns + exchange2Data.returns;
-  },[exchange1Data],[exchange2Data])
-
-  
+  console.log("render before");
+  const cryptoReturns = exchange1Data.returns + exchange2Data.returns;
+  console.log("render after");
   
   const incomeTax = (cryptoReturns + bankData.income) * 0.3
 
