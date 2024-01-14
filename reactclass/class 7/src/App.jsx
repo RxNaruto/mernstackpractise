@@ -5,6 +5,11 @@ import { Landing } from "./components/Landing";
 
 function App(){
   return(
+
+    <div>
+      <div style={{background:"black", color: "white"}}>
+        Hi this is top bar
+      </div>
     <BrowserRouter>
     <Routes>
       <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
@@ -12,6 +17,7 @@ function App(){
 
     </Routes>
     </BrowserRouter>
+    </div>
   )
 }
 
