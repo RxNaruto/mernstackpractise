@@ -1,7 +1,8 @@
-import  Data  from "./components/useEffectHook"
+import  Fetching  from "./components/useEffectuse"
 const App=()=>{
   return <div>
-    <Data></Data>
+    <Fetching></Fetching>
+    
 
   </div>
 }
