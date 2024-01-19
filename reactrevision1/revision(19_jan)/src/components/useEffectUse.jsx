@@ -11,7 +11,7 @@ const Fetching=()=>{
     }
     useEffect(()=>{
         console.log("Data Updated",data)
-    },[]);
+    },[data]);
 
     return (
         <div>
