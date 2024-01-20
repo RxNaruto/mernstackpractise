@@ -28,6 +28,13 @@ function App() {
       });
     },2000)
   }, [])
+  useEffect(()=>{
+    setTimeout(()=>{
+      setBankData({
+        income:200
+      });
+    },7000)
+  })
   
   const cryptoReturns = useMemo(()=>{
     console.log("hi this is before");

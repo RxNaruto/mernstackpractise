@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 function App() {
   const [exchange1Data, setExchange1Data] = useState({});
@@ -26,19 +26,25 @@ function App() {
       setBankData({
         income: 100
       });
-    },2000)
+    },5000)
   }, [])
-  console.log("hi this is before");
-  const cryptoReturns = exchange1Data.returns + exchange2Data.returns;
-  console.log("hi this is after");
   
-  const incomeTax = (cryptoReturns + bankData.income) * 0.3
+  const calculateCryptoReturns = useCallback(function(){
+    return exchange1Data.returns + exchange2Data.returns;
+  },[exchange1Data,exchange2Data])
+
 
   return (
     <div>
-        hi there, your income tax returns are {incomeTax}
+       <CryptoGainsCalculator calculateCryptoReturns={calculateCryptoReturns}></CryptoGainsCalculator>
     </div>
   )
 }
+const CryptoGainsCalculator = memo(function({calculateCryptoReturns}){
+  return <div>
+    Your crypto returns are {calculateCryptoReturns()}
+  </div>
+
+})
 
 export default App
