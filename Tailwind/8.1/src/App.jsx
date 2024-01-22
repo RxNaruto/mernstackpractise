@@ -1,8 +1,10 @@
+import { RevenueCard } from "./components/revenueCard"
+import './App.css'
 const App=()=>{
   return(
     <>
-    <div className="bg-red-500 md:bg-blue-500">Hi there</div>
-    
+   <RevenueCard title={"Amount pending"} amount={"99999"} orderCount={13}></RevenueCard>
+     
     </>
   )
 }
