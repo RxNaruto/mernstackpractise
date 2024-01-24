@@ -37,7 +37,7 @@ app.post("/signup",async(req,res)=>{
 
     const newuser = await User.createOne(body);
     const token = jwt.sign({
-        userId: newuser._idd
+        userId: newuser._id
     },JWT_SECRET);
     res.json({
         msg: "The user created succesfully",
