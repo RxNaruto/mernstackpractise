@@ -3,6 +3,7 @@ const zod = require('zod');
 const router = express.Router;
 const {Users} = require("../database/db");
 const { JWT_SECRET } = require('../config');
+const { authMiddleware } = require('../middlewares');
 
 const signupSchema = zod.object({
     username: zod.string().email(),
@@ -14,6 +15,12 @@ const signupSchema = zod.object({
 const signinSchema = zod.object({
     username: zod.string().email(),
     password: zod.string()
+})
+
+const updateSchema = zod.object({
+    password: zod.string().optional(),
+    firstName: zod.string().optional(),
+    lastName: zod.string().optional()
 })
 
 
@@ -85,6 +92,50 @@ router.post("/signin",async (req,res)=>{
         msg:"Error while logging in"
     })
 
+})
+
+router.put("/",authMiddleware,async (req,res)=>{
+    const body = req.body;
+    const validation = updateSchema.safeParse(body);
+    if(!validation.success){
+        return res.status(411).json({
+            msg: "Wrong input"
+        })
+    }
+
+    await Users.updateOne(body,{
+        id: req.userId
+    })
+    res.json({
+        msg: "Updated successfully"
+    })
+
+})
+
+router.get("/bulk" , async(req,res)=>{
+    const filter = req.query.filter || " ";
+
+    const users = await Users.find({
+        $or: [{
+            firstName: {
+                "$regex": filter
+            }
+            }, { 
+                lastName: {
+                    "$regex": filter
+                }
+            }
+        ]
+    })
+
+    res.json({
+        user: users.map(user => ({
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            _id: user._id
+        }))
+    })
 })
 
 module.exports=router;
