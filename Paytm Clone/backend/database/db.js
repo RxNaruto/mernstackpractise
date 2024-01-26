@@ -1,6 +1,9 @@
+// backend/db.js
 const mongoose = require('mongoose');
-mongoose.connect("mongodb+srv://naruto:jVSNMMGwfSVPzHXV@cluster0.78poq1d.mongodb.net/paytm");
 
+mongoose.connect("mongodb+srv://naruto:jVSNMMGwfSVPzHXV@cluster0.78poq1d.mongodb.net/paytm2")
+
+// Create a Schema for Users
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -10,12 +13,11 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         minLength: 3,
         maxLength: 30
-
     },
     password: {
         type: String,
         required: true,
-        minLength: 8,
+        minLength: 6
     },
     firstName: {
         type: String,
@@ -30,22 +32,23 @@ const userSchema = new mongoose.Schema({
         maxLength: 50
     }
 });
-const accountSchema = mongoose.Schema({
+
+const accountSchema = new mongoose.Schema({
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Users",
+        type: mongoose.Schema.Types.ObjectId, // Reference to User model
+        ref: 'User',
         required: true
     },
     balance: {
         type: Number,
         required: true
     }
-})
+});
 
-const Users = mongoose.model('User', userSchema);
-const Account = mongoose.model('Account',accountSchema);
+const Account = mongoose.model('Account', accountSchema);
+const User = mongoose.model('User', userSchema);
 
-module.exports={
-    Users,
-    Account,
-}
+module.exports = {
+	User,
+    Account
+};
