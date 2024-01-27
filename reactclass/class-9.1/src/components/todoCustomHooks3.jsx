@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { clearInterval } from 'timers'
 function useTodo(n){
   const [todos, setTodos] = useState([])
   const [loading,setLoading]=useState(true)
@@ -18,11 +17,8 @@ function useTodo(n){
         setTodos(res.data.todos);
         setLoading(false);
       })
-      return()=>{
-        clearInterval(value)
-      }
    
-  }, [n])
+  }, [])
 return {todos,loading}
 
 }
