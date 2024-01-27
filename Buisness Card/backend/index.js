@@ -1,8 +1,11 @@
 const express = require('express');
-const uesrRouter = require('./routes/user');
+const rootRouter = require("./routes/index");
 
-const router = express.Router();
+const app = express();
 
-router.use("/user",uesrRouter);
 
-module.exports=router;
+app.use(express.json());
+
+app.use("/api/v1", rootRouter);
+
+app.listen(3000);

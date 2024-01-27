@@ -7,28 +7,29 @@ const router = express.Router();
 
 router.post("/setInfo" , async (req,res)=>{
 
-    const body = req.body;
-    const userValidation = userSchema.safeParse(body);
+    const data = req.body;
+    const userValidation = userSchema.safeParse(req.body);
     if(!userValidation.success){
         return res.status(411).json({
-            msg: "Incorrect input / User already exist"
+            
+            msg: "Incorrect input "
         })
     }
     const cUser= await User.findOne({
-        username: body.username
+        username: data.username
     })
     if(cUser){
         return res.status(411).json({
             msg: "Incorrect input / User already exist"
         })
     }
-    const nUser = await User.create({
-        username: body.username,
-        name: body.name,
-        description: body.description,
-        information: body.information,
-        linkedin: body.linkedin,
-        twitter: body.twitter
+    const user = await User.create({
+        username: req.body.username,
+        name: req.body.name,
+        description: req.body.description,
+        information: req.body.information,
+        linkedin: req.body.linkedin,
+        twitter: req.body.twitter
         
 
     })
@@ -36,6 +37,11 @@ router.post("/setInfo" , async (req,res)=>{
         msg: "User created successfully"
     })
 
+})
+router.get("/routerChecking",(req,res)=>{
+    res.json({
+        msg: "hi i am here"
+    })
 })
 
 module.exports=router;
