@@ -1,20 +1,17 @@
-import { Route,BrowserRouter,Routes } from "react-router-dom";
-import { Signup } from "./pages/SignUp";
-import { Signin } from "./pages/SingIn";
-
-
-const App=()=>{
-  return(
+import { BrowserRouter,Route,Routes } from "react-router-dom"
+import { Signup } from "./pages/SignUp"
+import { Signin } from "./pages/SingIn"
+function App() {
+  return (
     <>
-    <BrowserRouter>
-    <Routes>
-      <Route path="/signup element={<Signup />}" />
-      <Route path="/signin element={<Signin />}" />
-      {/* <Route path="/signup element={<Signup />}" />
-      <Route path="/signup element={<Signup />}" /> */}
-
-    </Routes>
-    </BrowserRouter>
+       <BrowserRouter>
+        <Routes>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/send" element={<SendMoney />} /> */}
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
