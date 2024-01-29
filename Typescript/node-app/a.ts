@@ -1,2 +1,5 @@
-const x: number =1;
-console.log(x);
+function greet(firstname: string){
+    console.log("Hello "+firstname)
+}
+
+greet("naruto");
