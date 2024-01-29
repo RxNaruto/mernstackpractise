@@ -1,5 +1,6 @@
 "use strict";
-function greet(firstname) {
-    console.log("Hello " + firstname);
-}
-greet("naruto");
+const sum = (a, b) => {
+    return a + b;
+};
+const val = sum(2, 5);
+console.log(val);
