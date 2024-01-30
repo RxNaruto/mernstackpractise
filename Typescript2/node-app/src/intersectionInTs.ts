@@ -16,3 +16,4 @@ const teamlead: Teamlead = {
     startDate: new Date()
 
 }
+console.log(teamlead);

@@ -4,3 +4,4 @@ const teamlead = {
     department: "tech",
     startDate: new Date()
 };
+console.log(teamlead);
