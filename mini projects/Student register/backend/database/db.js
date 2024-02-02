@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
     password: String,
     name: String,
     rollno: String,
-    Branch: String
+    branch: String
 });
 
 const User = mongoose.model("user",UserSchema);

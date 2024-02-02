@@ -14,7 +14,7 @@ router.post("/signup",async(req,res)=>{
         username: userBody.username
     });
     
-    if(!existingUser.success){
+    if(existingUser){
         return res.status(411).json({
             msg: "User already exist"
         })
