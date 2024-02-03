@@ -1,7 +1,7 @@
 export const Heading=({label})=>{
-    return <div>
-        <div className="text-2xl font-bold font-mono">
+    return <div  className="text-2xl font-bold font-mono pt-6">
+       
             {label}
-        </div>
+        
     </div>
 }
