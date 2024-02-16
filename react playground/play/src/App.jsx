@@ -1,22 +1,12 @@
-import { Heading } from "./components/Heading"
-import { Button } from "./components/button"
+import { Signup } from "./pages/Signup"
 
 const App=()=>{
-  return <>
-  <div className="bg-black">
-  <div className="flex justify-center">
-    <div>
-    <Button label={"Signup"} />
-    <Heading label={"hi"} />
-    <Heading label={"hi"} />
-    <Heading label={"hi"} />
-    <Heading label={"hi"} />
-    </div>
-     
-  </div>
-  </div>
-  
-  </>
+  return(
+    <>
+    <Signup />
+    
+    </>
+  )
 }
 
 export default App
