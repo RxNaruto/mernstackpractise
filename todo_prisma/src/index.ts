@@ -12,4 +12,4 @@ async function insertUser(username: string , password: string, firstName: string
         },
       })
 }
-insertUser('test','test','test','test');
+insertUser('japsi','japsi123','japsigoat','ultimate');

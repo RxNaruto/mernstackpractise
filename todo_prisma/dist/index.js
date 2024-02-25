@@ -23,4 +23,4 @@ function insertUser(username, password, firstName, lastName) {
         });
     });
 }
-insertUser('test', 'test', 'test', 'test');
+insertUser('japsi', 'japsi123', 'japsigoat', 'ultimate');
